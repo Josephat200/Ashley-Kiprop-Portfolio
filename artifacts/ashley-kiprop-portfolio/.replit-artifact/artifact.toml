@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Ashley Kiprop — Data Science Portfolio"
+description = "A personal portfolio for data scientist Ashley Kiprop, showcasing her approach, selected projects, and ways to connect."
+version = "1.0.0"
+id = "artifacts/ashley-kiprop-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19800
+
+[services.development]
+run = "pnpm --filter @workspace/ashley-kiprop-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ashley-kiprop-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/ashley-kiprop-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19800"
+BASE_PATH = "/"
